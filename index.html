@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CoordinAPP: coordina tiempos entre amigos, familia y equipos de trabajo." />
+  <meta property="og:title" content="CoordinAPP" />
+  <meta property="og:description" content="Encuentra ventanas libres entre todos los integrantes de tu grupo." />
+  <meta property="og:image" content="assets/logo.svg" />
+  <title>CoordinAPP</title>
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="Logo CoordinAPP" class="logo" />
+        <div>
+          <h1>Coordin<span>APP</span></h1>
+          <p>Coordina tiempos</p>
+        </div>
+      </div>
+
+      <section class="panel compact">
+        <div class="panel-title">
+          <h2>Grupos</h2>
+          <button id="newGroupBtn" class="icon-btn" title="Crear grupo">+</button>
+        </div>
+        <div id="groupList" class="group-list"></div>
+      </section>
+
+      <section class="panel compact">
+        <div class="panel-title">
+          <h2>Integrantes</h2>
+          <button id="newMemberBtn" class="icon-btn" title="Agregar integrante">+</button>
+        </div>
+        <div id="memberList" class="member-list"></div>
+      </section>
+
+      <div class="sidebar-footer">
+        <button id="resetBtn" class="ghost-btn">Reiniciar demo</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Dashboard de coordinación</p>
+          <h2 id="currentGroupTitle">CoordinAPP</h2>
+        </div>
+        <div class="topbar-actions">
+          <button id="themeBtn" class="secondary-btn">Modo oscuro</button>
+          <button id="addTaskBtn" class="primary-btn">+ Nueva ocupación</button>
+        </div>
+      </header>
+
+      <section class="hero-card">
+        <div>
+          <h3>Encuentra cuándo todos pueden reunirse</h3>
+          <p>Agrega ocupaciones por persona y CoordinAPP calcula automáticamente las ventanas donde nadie está ocupado.</p>
+        </div>
+        <div class="stats-grid">
+          <div><strong id="tasksCount">0</strong><span>ocupaciones</span></div>
+          <div><strong id="membersCount">0</strong><span>integrantes</span></div>
+          <div><strong id="freeCount">0</strong><span>ventanas libres</span></div>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel calendar-panel">
+          <div class="calendar-header">
+            <div>
+              <h3>Agenda semanal</h3>
+              <p>Ocupado por integrante y ventanas coincidentes.</p>
+            </div>
+            <div class="segmented">
+              <button data-mode="work" class="mode-btn active">Trabajo</button>
+              <button data-mode="leisure" class="mode-btn">Ocio</button>
+              <button data-mode="all" class="mode-btn">Todo</button>
+            </div>
+          </div>
+          <div id="calendar" class="calendar"></div>
+        </section>
+
+        <aside class="right-column">
+          <section class="panel">
+            <div class="panel-title">
+              <h3>Momentos ideales</h3>
+              <span id="modeLabel" class="pill">Modo Trabajo</span>
+            </div>
+            <div id="freeWindows" class="free-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-title">
+              <h3>Ocupaciones</h3>
+              <span class="pill subtle">Grupo actual</span>
+            </div>
+            <div id="taskList" class="task-list"></div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="taskDialog" class="modal">
+    <form id="taskForm" method="dialog">
+      <div class="modal-header">
+        <h3>Nueva ocupación</h3>
+        <button type="button" class="icon-btn" id="closeTaskModal">×</button>
+      </div>
+      <label>Integrante<select id="taskMember" required></select></label>
+      <label>Actividad<input id="taskTitle" required placeholder="Ej. Clase, gimnasio, reunión" /></label>
+      <div class="form-row">
+        <label>Día<select id="taskDay" required></select></label>
+        <label>Inicio<input id="startTime" type="time" required value="09:00" /></label>
+        <label>Fin<input id="endTime" type="time" required value="10:30" /></label>
+      </div>
+      <menu class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelTask">Cancelar</button>
+        <button class="primary-btn" value="default">Guardar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="textDialog" class="modal small-modal">
+    <form id="textForm" method="dialog">
+      <div class="modal-header">
+        <h3 id="textDialogTitle">Nuevo</h3>
+        <button type="button" class="icon-btn" id="closeTextModal">×</button>
+      </div>
+      <label id="textLabel">Nombre<input id="textInput" required /></label>
+      <menu class="modal-actions">
+        <button type="button" class="secondary-btn" id="cancelText">Cancelar</button>
+        <button class="primary-btn" value="default">Guardar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
